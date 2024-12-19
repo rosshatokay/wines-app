@@ -1,0 +1,387 @@
+@font-face {
+  font-family: "Studio Pro";
+  font-weight: 600;
+  src: url(../StudioPro-Bold.woff2);
+}
+@font-face {
+  font-family: "Studio Pro";
+  font-weight: 400;
+  src: url(../StudioPro-Regular.woff2);
+}
+body *, * {
+  box-sizing: border-box;
+  font-family: "Studio Pro";
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+  background: white;
+}
+
+nav.top {
+  position: fixed;
+  height: 74px;
+  width: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding: 32px;
+  z-index: 1;
+  background: white;
+  justify-content: center;
+}
+nav.top a {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.link {
+  position: relative;
+  overflow: hidden;
+  padding: 4px 0;
+}
+.link::after {
+  position: absolute;
+  content: "";
+  bottom: 0;
+  left: 0;
+  width: 0px;
+  background: black;
+  transition: 0.2s ease;
+  height: 2px;
+}
+.link:hover::after {
+  width: 100%;
+}
+
+.container {
+  padding: 0 48px;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.logo {
+  height: 36px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app {
+  padding-top: 170px;
+  padding-bottom: 48px;
+}
+
+h1 {
+  pointer-events: none;
+  font-size: 86px;
+  line-height: 1;
+}
+h1 span {
+  display: block;
+}
+h1 span:last-child {
+  color: #999;
+}
+
+.gs--up {
+  transform: translateY(48px);
+  opacity: 0;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 100px;
+  padding: 0 16px;
+  gap: 16px;
+}
+.categories--box {
+  padding: 32px;
+  border-radius: 48px;
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  height: 400px;
+  align-items: flex-start;
+}
+.categories--box:hover img {
+  bottom: -35%;
+}
+.categories--box:hover.all .badge {
+  background: #2b2b2b;
+  color: #eaebf1;
+}
+.categories--box:hover.white .badge {
+  background: #F19A37;
+  color: #FEFBDF;
+}
+.categories--box:hover.red .badge {
+  background: #911D18;
+  color: #F1A2A5;
+}
+.categories--box:hover .btn i:first-child {
+  transform: translateX(100%);
+}
+.categories--box:hover .btn i:last-child {
+  transform: translateX(0%);
+}
+.categories--box h2 {
+  line-height: 1;
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+.categories--box .badge {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+.categories--box img {
+  position: absolute;
+  width: 90px;
+  bottom: -40%;
+  transition: 0.3s ease;
+  left: 32px;
+}
+.categories--box .btn {
+  width: 48px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: red;
+  margin-top: auto;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.categories--box .btn i {
+  width: 100%;
+  height: 100%;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+.categories--box .btn i:last-child {
+  transform: translateX(-100%);
+}
+.categories--box.red {
+  background: #F1A2A5;
+  color: #911D18;
+}
+.categories--box.red .badge {
+  border-color: #911D18;
+}
+.categories--box.red .btn {
+  background: #911D18;
+  color: #F1A2A5;
+}
+.categories--box.white {
+  background: #FEFBDF;
+  color: #F19A37;
+}
+.categories--box.white .badge {
+  border-color: #F19A37;
+}
+.categories--box.white .btn {
+  background: #F19A37;
+  color: #FEFBDF;
+}
+.categories--box.all {
+  background: #eaebf1;
+  color: #2b2b2b;
+}
+.categories--box.all .badge {
+  border-color: #2b2b2b;
+}
+.categories--box.all .btn {
+  background: #2b2b2b;
+  color: #FEFBDF;
+}
+
+.back-btn {
+  transition: 0.2s ease;
+}
+.back-btn:hover {
+  opacity: 0.5;
+}
+
+.table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0 auto;
+}
+.table .icon {
+  width: 40px;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.table .icon.white {
+  background: #F19A37;
+  color: #FEFBDF;
+}
+.table .icon.red {
+  background: #911D18;
+  color: #F1A2A5;
+}
+.table th {
+  text-align: left;
+  background: #eee;
+}
+.table thead th {
+  white-space: nowrap;
+  padding: 12px 32px;
+  font-weight: 400;
+  color: #444;
+}
+.table thead th:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.table thead th:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.table tbody {
+  margin-top: 8px;
+}
+.table tbody td {
+  padding: 16px 32px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 18px;
+  white-space: nowrap;
+  background: rgba(1, 1, 1, 0.05);
+}
+.table tbody td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.table tbody td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.dt-scroll-body {
+  margin-top: 8px;
+}
+
+.dt-layout-row:last-child {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dt-layout-row:last-child nav {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.dt-layout-row:last-child button {
+  background: rgba(1, 1, 1, 0.1);
+  transition: 0.1s ease;
+  border: none;
+  outline: none;
+  width: 40px;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.dt-layout-row:last-child button:hover {
+  background: rgba(1, 1, 1, 0.2);
+}
+
+.dt-layout-row:first-child {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dt-layout-row:first-child label {
+  display: none;
+}
+.dt-layout-row:first-child .dt-length label {
+  display: inline-block;
+  padding: 0 12px;
+}
+.dt-layout-row:first-child input {
+  background: rgba(1, 1, 1, 0.1);
+  outline: none;
+  border: none;
+  height: 40px;
+  border-radius: 10px;
+  padding: 0 16px;
+  transition: 0.1s ease;
+  border: 2px solid transparent;
+}
+.dt-layout-row:first-child input:hover {
+  background: rgba(1, 1, 1, 0.2);
+}
+.dt-layout-row:first-child input:focus {
+  background: transparent;
+  border-color: black;
+}
+.dt-layout-row:first-child select {
+  border: none;
+  height: 40px;
+  background: rgba(1, 1, 1, 0.1);
+  padding: 0 16px;
+  border-radius: 10px;
+}
+.dt-layout-row:first-child select:hover {
+  background: rgba(1, 1, 1, 0.2);
+}
+
+.dt-scroll-head {
+  position: sticky !important;
+  top: 72px;
+  z-index: 10;
+}
+
+div.dt-scroll-body thead tr, div.dt-scroll-body tfoot tr {
+  height: 0;
+}
+
+div.dt-scroll-body > table.dataTable > thead > tr > th, div.dt-scroll-body > table.dataTable > thead > tr > td {
+  overflow: hidden;
+}
+
+div.dt-scroll-body thead tr th, div.dt-scroll-body thead tr td, div.dt-scroll-body tfoot tr th, div.dt-scroll-body tfoot tr td {
+  height: 0 !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  border-top-width: 0px !important;
+  border-bottom-width: 0px !important;
+}
+
+div.dt-scroll-body thead tr th div.dt-scroll-sizing, div.dt-scroll-body thead tr td div.dt-scroll-sizing, div.dt-scroll-body tfoot tr th div.dt-scroll-sizing, div.dt-scroll-body tfoot tr td div.dt-scroll-sizing {
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/*# sourceMappingURL=app.css.map */

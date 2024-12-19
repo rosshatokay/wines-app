@@ -1,0 +1,101 @@
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1" rel="stylesheet">
+</head>
+<body>
+
+<nav class="top">
+    <img th:src="@{/assets/logo.svg}" class="logo">
+    <!-- <a href="" class="link">add a wine</a> -->
+</nav>
+
+<div class="app">
+    <div class="container">
+        <div class="flex" style="flex-direction: column; align-items: flex-start; gap: 16px;">
+            <div class="gs--up">
+                <a href="/" class="back-btn flex items-center" style="gap: 8px; font-size: 18px; font-weight: 600;">
+                    <i class="material-symbols-rounded">arrow_back</i>
+                    Go back
+                </a>
+            </div>
+            <h1>
+                <span class="gs--up" style="color: black;">all wines</span>
+            </h1>
+            <p class="gs--up" style="color: #666;">Showing 1,214 results</p>
+        </div>
+        <div style="margin-top: 80px"></div>
+        <div class="gs--up">
+
+            <table class="table" id="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fixed Acidity</th>
+                    <th>Volatile Acidity</th>
+                    <th>Citric Acid</th>
+                    <th>Residual Sugar</th>
+                    <th>Chlorides</th>
+                    <th>Free Sulfur Dioxide</th>
+                    <th>Total Sulfur Dioxide</th>
+                    <th>Density</th>
+                    <th>pH</th>
+                    <th>Sulphates</th>
+                    <th>Alcohol</th>
+                    <th>Quality</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="wine :${wines}">
+                        <td>
+                            <div class="flex items-center" style="gap: 16px">
+                                <div class="icon red">R</div>
+                                <span th:if="${wine.color == 'white'}">White wine</span>
+                                <span th:if="${wine.color == 'red'}">Red wine</span>
+                            </div>
+                        </td>
+                        <td th:text="${wine.fixedAcidity}"></td>
+                        <td th:text="${wine.volatileAcidity}"></td>
+                        <td th:text="${wine.citricAcid}"></td>
+                        <td th:text="${wine.residualSugar}"></td>
+                        <td th:text="${wine.chlorides}"></td>
+                        <td th:text="${wine.freeSulfurDioxide}"></td>
+                        <td th:text="${wine.totalSulfurDioxide}"></td>
+                        <td th:text="${wine.density}"></td>
+                        <td th:text="${wine.pH}"></td>
+                        <td th:text="${wine.sulphates}"></td>
+                        <td th:text="${wine.alcohol}"></td>
+                        <td th:text="${wine.quality}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+<script>
+    new DataTable('#table', {
+        scrollX: true,
+        layout: {
+    topEnd: {
+        search: {
+            placeholder: 'Search here'
+        }
+    }
+    }
+    })
+    gsap.to('.gs--up', {
+        opacity: 1,
+        duration: 0.8,
+        y: 0,
+        stagger: 0.08,
+        ease: 'circ'
+    })
+</script>
+
+</body>
+</html>
