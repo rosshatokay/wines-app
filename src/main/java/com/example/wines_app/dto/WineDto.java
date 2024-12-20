@@ -1,6 +1,5 @@
 package com.example.wines_app.dto;
 
-import jakarta.persistence.Column;
 import lombok.Builder;
 import lombok.Data;
 

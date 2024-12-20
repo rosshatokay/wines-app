@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface WineService {
     List<WineDto> findAllWines();
+    List<WineDto> findWinesByColor(String color);
 }
