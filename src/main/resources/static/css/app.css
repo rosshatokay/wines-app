@@ -480,7 +480,7 @@ div.dt-scroll-body thead tr th div.dt-scroll-sizing, div.dt-scroll-body thead tr
 	position: fixed;
 	top: 0;
 	left: 0;
-	background: rgba(1,1,1,.4);
+	background: rgba(1,1,1,.5);
 	width: 100%;
 	height: 100vh;
 	z-index: 999;
@@ -505,23 +505,114 @@ div.dt-scroll-body thead tr th div.dt-scroll-sizing, div.dt-scroll-body thead tr
 	background: white;
 	max-width: 480px;
 	width: 100%;
-	padding: 24px;
 	border-radius: 16px;
 	transform: translateY(24px);
 	transition: .2s ease;
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	min-height: 0;
+	max-height: 60vh;
+	overflow: hidden;
 }
 
 .filter-modal h4 {
-	font-size: 18px;
+	font-size: 16px;
+	font-weight: 400;
+	opacity: .6;
 }
 
 .filter-modal .heading {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	padding: 16px 24px;
+	border-bottom: 1px solid rgba(1,1,1,.1);
+}
+
+.filter-modal .body {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	padding: 24px;
+	overflow-y: auto;
+}
+
+.filter-modal .footer {
+	padding: 16px 24px;
+	border-top: 1px solid rgba(1,1,1,.1);
+}
+
+.filter-modal .footer button {
+	border: none;
+	outline: none;
+	height: 40px;
+	border-radius: 10px;
+	padding: 0 16px;
+	background: black;
+	transition: .1s ease;
+	font-size: 15px;
+	color: white;
+}
+
+.filter-modal .footer button:hover {
+	background: rgb(36, 36, 36);
+}
+
+.filter-modal section {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.filter-modal label {
+	display: flex;
+	gap: 8px;
+	cursor: pointer;
+	align-items: center;
+}
+
+.filter-modal label input {
+	opacity: 0;	
+	width: 0;
+	height: 0;
+	order: 99;
+}
+
+.filter-modal .checkbox {
+	width: 24px;
+	aspect-ratio: 1 / 1;
+	border-radius: 8px;
+	border: 1px solid rgba(1,1,1,.1);
+	position: relative;
+}
+
+.filter-modal .checkbox::after {
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	content: "";
+	width: 3px;
+	height: 7px;
+	border: solid white;
+	border-width: 0 2px 2px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: translate(-50%, -50%) rotate(45deg);
+	opacity: 0;
+}
+
+.filter-modal input:checked ~ .checkbox {
+	background: black;
+}
+
+.filter-modal input:checked ~ .checkbox::after {
+	opacity: 1;
+}
+
+.filter-modal .grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
 }
 
 .filter-modal h3 {

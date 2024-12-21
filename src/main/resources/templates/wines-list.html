@@ -152,7 +152,78 @@
 				</div>
 			</div>
 			<div class="body">
-				<h4>Toggle fields</h4>
+				<section>
+					<h4>Toggle fields</h4>
+					<div class="grid">
+						<label for="fa">
+							<input type="checkbox" id="fa">
+							<div class="checkbox"></div>
+							Fixed Acidity
+						</label>
+						<label for="va">
+							<input type="checkbox" id="va">
+							<div class="checkbox"></div>
+							Volatile Acidity
+						</label>
+						<label for="ca">
+							<input type="checkbox" id="ca">
+							<div class="checkbox"></div>
+							Citric Acid
+						</label>
+						<label for="rs">
+							<input type="checkbox" id="rs">
+							<div class="checkbox"></div>
+							Residual Sugar
+						</label>
+						<label for="cl">
+							<input type="checkbox" id="cl">
+							<div class="checkbox"></div>
+							Chlorides
+						</label>
+						<label for="fsd">
+							<input type="checkbox" id="fsd">
+							<div class="checkbox"></div>
+							Free Sulfur Dioxide
+						</label>
+						<label for="tsd">
+							<input type="checkbox" id="tsd">
+							<div class="checkbox"></div>
+							Total Sulfur Dioxide
+						</label>
+						<label for="d">
+							<input type="checkbox" id="d">
+							<div class="checkbox"></div>
+							Density
+						</label>
+						<label for="ph">
+							<input type="checkbox" id="ph">
+							<div class="checkbox"></div>
+							pH
+						</label>
+						<label for="s">
+							<input type="checkbox" id="s">
+							<div class="checkbox"></div>
+							Sulphates
+						</label>
+						<label for="al">
+							<input type="checkbox" id="al">
+							<div class="checkbox"></div>
+							Alcohol
+						</label>
+						<label for="q">
+							<input type="checkbox" id="q">
+							<div class="checkbox"></div>
+							Quality
+						</label>
+					</div>
+				</section>
+				<section>
+					<h4>Max pH</h4>
+					<input type="range" max="10">
+				</section>
+			</div>
+			<div class="footer">
+				<button>Submit</button>
 			</div>
 		</div>
 	</div>
@@ -163,7 +234,10 @@
 	<script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
 
 	<script th:src="@{/js/app.js}"></script>
-	<script>getForTables()</script>
+	<script>
+		window.onunload = function(){} // browser bug, clear cache to run script on history.back()
+		getForTables()
+	</script>
 
 </body>
 
