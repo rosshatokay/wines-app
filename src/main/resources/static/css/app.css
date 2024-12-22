@@ -456,7 +456,7 @@ div.dt-scroll-body thead tr th div.dt-scroll-sizing, div.dt-scroll-body thead tr
 	gap: 8px;
 }
 
-.js-filter {
+.filter-modal-trigger {
 	height: 40px;
 	border-radius: 10px;
 	display: flex;
@@ -468,11 +468,11 @@ div.dt-scroll-body thead tr th div.dt-scroll-sizing, div.dt-scroll-body thead tr
 	cursor: pointer;
 }
 
-.js-filter i {
+.filter-modal-trigger i {
 	font-size: 20px;
 }
 
-.js-filter:hover {
+.filter-modal-trigger:hover {
 	background: rgba(1,1,1,.2);
 }
 
@@ -552,6 +552,7 @@ div.dt-scroll-body thead tr th div.dt-scroll-sizing, div.dt-scroll-body thead tr
 	transition: .1s ease;
 	font-size: 15px;
 	color: white;
+	cursor: pointer;
 }
 
 .filter-modal .footer button:hover {

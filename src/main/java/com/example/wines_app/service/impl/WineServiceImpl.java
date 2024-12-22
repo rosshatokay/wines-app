@@ -8,8 +8,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+import java.lang.reflect.Field;
+
 
 @Service
 
@@ -30,18 +34,36 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public List<WineDto> findWinesByColor(String color) {
+    public List<Map<String, Object>> findWines(String color, List<String> fields) {
         List<Wine> wines;
+
+        // Filter by color if specified
         if (color == null || color.isBlank()) {
             wines = wineRepository.findAll();
         } else {
             wines = wineRepository.findByColorIgnoreCase(color);
         }
 
-        // Map Wine entities to WineDto objects
-        return wines.stream()
-                .map(this::mapToWineDto)
-                .collect(Collectors.toList());
+        // Map and project fields dynamically
+        return wines.stream().map(wine -> projectFields(wine, fields)).toList();
+    }
+
+    // Helper method to project specific fields
+    private Map<String, Object> projectFields(Wine wine, List<String> fields) {
+        Map<String, Object> projectedFields = new HashMap<>();
+
+        // Use reflection to dynamically access fields
+        for (String field : fields) {
+            try {
+                Field declaredField = Wine.class.getDeclaredField(field);
+                declaredField.setAccessible(true);
+                projectedFields.put(field, declaredField.get(wine));
+            } catch (NoSuchFieldException | IllegalAccessError | IllegalAccessException e) {
+                System.err.println("Invalid field: " + field);
+            }
+        }
+
+        return projectedFields;
     }
 
     private WineDto mapToWineDto(Wine wine) {

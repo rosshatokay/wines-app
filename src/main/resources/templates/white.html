@@ -1,10 +1,8 @@
 <html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <head>
-	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" th:href="@{/css/app.css}">
 	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1" rel="stylesheet">
 </head>
-
 <body>
 
 	<div class="loading-screen">
@@ -103,45 +101,140 @@
 
 	<div class="app">
 		<div class="container">
-			<h1>
-				<span class="gs--up">the wines</span>
-				<span class="gs--up">catalog</span>
-			</h1>
+			<div class="flex" style="flex-direction: column; align-items: flex-start; gap: 16px;">
+				<div class="gs--up">
+					<a href="/" class="back-btn flex items-center" style="gap: 8px; font-size: 18px; font-weight: 600;">
+						<i class="material-symbols-rounded">arrow_back</i>
+						Go back
+					</a>
+				</div>
+				<h1>
+					<span class="gs--up" style="color: black;">white wines</span>
+				</h1>
+				<p class="gs--up total-results" style="color: #666;">Showing 1,214 results</p>
+			</div>
+			<div style="margin-top: 80px"></div>
+			<div class="gs--up">
+
+				<table class="table" id="table">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Fixed Acidity</th>
+							<th>Volatile Acidity</th>
+							<th>Citric Acid</th>
+							<th>Residual Sugar</th>
+							<th>Chlorides</th>
+							<th>Free Sulfur Dioxide</th>
+							<th>Total Sulfur Dioxide</th>
+							<th>Density</th>
+							<th>pH</th>
+							<th>Sulphates</th>
+							<th>Alcohol</th>
+							<th>Quality</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
 		</div>
-		<div class="categories">
-			<a href="/wines/all" class="categories--box all gs--up">
-				<h2>see all</h2>
-				<div class="badge"></div>
-				<div class="btn">
-					<i class="material-symbols-rounded">arrow_forward</i>
-					<i class="material-symbols-rounded">arrow_forward</i>
+	</div>
+
+	<div class="filter-modal" id="filter-modal">
+		<div class="filter-modal--inner">
+			<div class="heading">
+				<h3>Filter</h3>
+				<div class="close-btn" data-micromodal-close>
+					<i class="material-symbols-rounded">close</i>
 				</div>
-			</a>
-			<a href="/wines/red" class="categories--box red gs--up">
-				<h2>red wine</h2>
-				<div class="badge"></div>
-				<div class="btn">
-					<i class="material-symbols-rounded">arrow_forward</i>
-					<i class="material-symbols-rounded">arrow_forward</i>
-				</div>
-			</a>
-			<a href="/wines/white" class="categories--box white gs--up">
-				<h2>white wine</h2>
-				<div class="badge"></div>
-				<div class="btn">
-					<i class="material-symbols-rounded">arrow_forward</i>
-					<i class="material-symbols-rounded">arrow_forward</i>
-				</div>
-			</a>
+			</div>
+			<div class="body">
+				<section>
+					<h4>Toggle fields</h4>
+					<div class="grid">
+						<label for="fa">
+							<input type="checkbox" id="fa" name="fa" value="0">
+							<div class="checkbox"></div>
+							Fixed Acidity
+						</label>
+						<label for="va">
+							<input type="checkbox" id="va" name="va" value="0">
+							<div class="checkbox"></div>
+							Volatile Acidity
+						</label>
+						<label for="ca">
+							<input type="checkbox" id="ca" name="ca" value="0">
+							<div class="checkbox"></div>
+							Citric Acid
+						</label>
+						<label for="rs">
+							<input type="checkbox" id="rs" name="rs" value="0">
+							<div class="checkbox"></div>
+							Residual Sugar
+						</label>
+						<label for="cl">
+							<input type="checkbox" id="cl" name="cl" value="0">
+							<div class="checkbox"></div>
+							Chlorides
+						</label>
+						<label for="fsd">
+							<input type="checkbox" id="fsd" name="fsd" value="0">
+							<div class="checkbox"></div>
+							Free Sulfur Dioxide
+						</label>
+						<label for="tsd">
+							<input type="checkbox" id="tsd" name="tsd" value="0">
+							<div class="checkbox"></div>
+							Total Sulfur Dioxide
+						</label>
+						<label for="d">
+							<input type="checkbox" id="d" name="d" value="0">
+							<div class="checkbox"></div>
+							Density
+						</label>
+						<label for="ph">
+							<input type="checkbox" id="ph" name="ph" value="0">
+							<div class="checkbox"></div>
+							pH
+						</label>
+						<label for="s">
+							<input type="checkbox" id="s" name="s" value="0">
+							<div class="checkbox"></div>
+							Sulphates
+						</label>
+						<label for="al">
+							<input type="checkbox" id="al" name="al" value="0">
+							<div class="checkbox"></div>
+							Alcohol
+						</label>
+						<label for="q">
+							<input type="checkbox" id="q" name="q" value="0">
+							<div class="checkbox"></div>
+							Quality
+						</label>
+					</div>
+				</section>
+				<section>
+					<h4>Max pH</h4>
+					<input type="range" max="10">
+				</section>
+			</div>
+			<div class="footer">
+				<button>Submit</button>
+			</div>
 		</div>
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+	<script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+
 	<script th:src="@{/js/app.js}"></script>
 	<script>
 		window.onunload = function () { } // browser bug, clear cache to run script on history.back()
-		initLanding()
+		getForTables('white')
 	</script>
 
 </body>

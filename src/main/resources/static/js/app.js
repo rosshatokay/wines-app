@@ -1,5 +1,7 @@
 // Loading screen animation
 const tl = gsap.timeline() // bind gsap timeline
+let initialized = false
+let table
 
 $('.loading-screen .fg').css('width', `${getRandomInt(20, 60)}%`)
 
@@ -14,19 +16,46 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled)
 }
 
-function getForTables() {
+/**
+ * Get wines data based on color param via AJAX
+ * @param {String} color Color param {red | white} (optional)
+ * @param {Array} fields - String of field arrays (optional)
+ */
+function getForTables(color, fields) {
+	let fieldsData = null
+
+	if (fields) {
+		fieldsData = fields.join(",")
+
+		fields.forEach((fieldString) => {
+			$('.dt-scroll-head thead th').each((i, th) => {
+				console.log($(th).attr('data-id'))
+			})
+		})
+	}
+
 	$.ajax({
 		url: '/api/wines',
 		type: 'get',
 		data: {
-			// color: "red"
+			color: color ? color : CURR_WINE_COLOR,
+			fields: fieldsData ? fieldsData : null
 		},
 		success(res) {
-			createData(res.slice(0, 10))
+			createData(res)
 		}
 	})
 	
+	/**
+	 * Append and create relevant table for wines
+	 * @param {Array} data Array of wine objects
+	 */
 	function createData(data) {
+		if (table) {
+			table.clear()
+			table.destroy()
+		}
+		
 		$('.total-results').text(`Showing ${data.length} wines`)
 
 		data.forEach((wine, i) => {
@@ -53,7 +82,7 @@ function getForTables() {
 			$('.table').append(html)
 		})
 	
-		const table = new DataTable('#table', {
+		table = new DataTable('#table', {
 			scrollX: true,
 			layout: {
 				topEnd: {
@@ -64,13 +93,15 @@ function getForTables() {
 			}
 		})
 
-		$('.dt-column-order:not(:first)').append(`
+		// Add little sort buttons to each table head col
+		$('.dt-column-order:not(:first)').empty().append(`
 			<i class="material-symbols-rounded up">keyboard_arrow_up</i>
 			<i class="material-symbols-rounded down">keyboard_arrow_down</i>
 		`)
 
+		// Add the filter modal trigger button
 		$('.dt-layout-cell.dt-layout-end:not(:last)').prepend(`
-			<div class="js-filter" data-micromodal-trigger="filter-modal"><i class="material-symbols-rounded">filter_alt</i> Filter</div>
+			<div data-micromodal-trigger="filter-modal" class="filter-modal-trigger"><i class="material-symbols-rounded">filter_alt</i> Filter</div>
 		`)
 
 		table.draw()
@@ -82,11 +113,31 @@ function getForTables() {
 // Handle click event for the filter button
 function bindFilterBtn()
 {
-	const btn = $('.js-filter')
+	const filterBtnEl = $('.js-filter')
 
 	MicroModal.init({
 		disableScore: true
 	})
+
+	filterBtnEl.unbind().click(submitModalForm)
+}
+
+/**
+ * Send the relevant fields via AJAX
+ */
+function submitModalForm()
+{
+	const checkedFieldBoxes = $('.filter-modal input:checkbox:checked')
+	let checkedFieldsArr = []
+
+	checkedFieldBoxes.each((index, field) => {
+		const f = $(field).val()
+
+		checkedFieldsArr.push('color') // hard-code to fetch color also
+		checkedFieldsArr.push(f)
+	})
+
+	getForTables(null, checkedFieldsArr)
 }
 
 // Animate loading screen before loading location path
@@ -129,6 +180,8 @@ function initLanding() {
 loadingScreenPreLocation()
 
 $(document).ajaxComplete(function () {
+	if (initialized) return
+
 	setTimeout(() => {
 		$('.loading-screen .fg').css('width', '100%')
 	}, 300)
@@ -159,4 +212,6 @@ function doneLoading() {
 	})
 
 	tl.play()
+
+	initialized = true // play animations only for page load
 }
