@@ -109,119 +109,10 @@
 					</a>
 				</div>
 				<h1>
-					<span class="gs--up" style="color: black;">red wines</span>
+					<span class="gs--up" style="color: black;">compare wines</span>
 				</h1>
-				<p class="gs--up total-results" style="color: #666;">Showing 1,214 results</p>
-			</div>
-			<div style="margin-top: 80px"></div>
-			<div class="gs--up">
-
-				<table class="table" id="table">
-					<thead>
-						<tr>
-							<th data-id="color"></th>
-							<th data-id="fixedAcidity">Fixed Acidity</th>
-							<th data-id="volatileAcidity">Volatile Acidity</th>
-							<th data-id="citricAcid">Citric Acid</th>
-							<th data-id="residualSugar">Residual Sugar</th>
-							<th data-id="chlorides">Chlorides</th>
-							<th data-id="freeSulfurDioxide">Free Sulfur Dioxide</th>
-							<th data-id="totalSulfurDioxide">Total Sulfur Dioxide</th>
-							<th data-id="density">Density</th>
-							<th data-id="pH">pH</th>
-							<th data-id="sulphates">Sulphates</th>
-							<th data-id="alcohol">Alcohol</th>
-							<th data-id="quality">Quality</th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-
-	<div class="filter-modal" id="filter-modal">
-		<div class="filter-modal--inner">
-			<div class="heading">
-				<h3>Filter</h3>
-				<div class="close-btn" data-micromodal-close>
-					<i class="material-symbols-rounded">close</i>
-				</div>
-			</div>
-			<div class="body">
-				<section>
-					<h4>Toggle fields</h4>
-					<div class="grid">
-						<label for="fa">
-							<input type="checkbox" id="fa" value="fixedAcidity">
-							<div class="checkbox"></div>
-							Fixed Acidity
-						</label>
-						<label for="va">
-							<input type="checkbox" id="va" value="volatileAcidity">
-							<div class="checkbox"></div>
-							Volatile Acidity
-						</label>
-						<label for="ca">
-							<input type="checkbox" id="ca" value="citricAcid">
-							<div class="checkbox"></div>
-							Citric Acid
-						</label>
-						<label for="rs">
-							<input type="checkbox" id="rs" value="residualSugar">
-							<div class="checkbox"></div>
-							Residual Sugar
-						</label>
-						<label for="cl">
-							<input type="checkbox" id="cl" value="chlorides">
-							<div class="checkbox"></div>
-							Chlorides
-						</label>
-						<label for="fsd">
-							<input type="checkbox" id="fsd" value="freeSulfurDioxide">
-							<div class="checkbox"></div>
-							Free Sulfur Dioxide
-						</label>
-						<label for="tsd">
-							<input type="checkbox" id="tsd" value="totalSulfurDioxide">
-							<div class="checkbox"></div>
-							Total Sulfur Dioxide
-						</label>
-						<label for="d">
-							<input type="checkbox" id="d" value="density">
-							<div class="checkbox"></div>
-							Density
-						</label>
-						<label for="ph">
-							<input type="checkbox" id="ph" value="ph">
-							<div class="checkbox"></div>
-							pH
-						</label>
-						<label for="s">
-							<input type="checkbox" id="s" value="sulphates">
-							<div class="checkbox"></div>
-							Sulphates
-						</label>
-						<label for="al">
-							<input type="checkbox" id="al" value="alcohol">
-							<div class="checkbox"></div>
-							Alcohol
-						</label>
-						<label for="q">
-							<input type="checkbox" id="q" value="quality">
-							<div class="checkbox"></div>
-							Quality
-						</label>
-					</div>
-				</section>
-				<section>
-					<h4>Max pH</h4>
-					<input type="range" max="10">
-				</section>
-			</div>
-			<div class="footer">
-				<button class="js-filter">Submit</button>
+				<p class="gs--up" style="color: #666;">Below, you can see a comparison between the red and white wines.</p>
+				<!-- <p class="gs--up total-results" style="color: #666;">Showing 1,214 results</p> -->
 			</div>
 		</div>
 	</div>
@@ -230,14 +121,14 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 	<script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+	<script>
+		window.onunload = function () { } // browser bug, clear cache to run script on history.back()
+		const CURR_WINE_COLOR = null
+		const COMPARING = true
+	</script>
 
 	<script th:src="@{/js/compare.js}"></script>
 	<script th:src="@{/js/app.js}"></script>
-	<script>
-		window.onunload = function () { } // browser bug, clear cache to run script on history.back()
-		const CURR_WINE_COLOR = 'red'
-		getForTables()
-	</script>
 
 </body>
 

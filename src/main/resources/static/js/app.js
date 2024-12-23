@@ -51,6 +51,10 @@ function animateLoading(element) {
  * @param {Object} loadingBtnEl Button element with loading animation
  */
 function getForTables(color, fields, loadingBtnEl) {
+	if (fields) {
+		fields = fields.filter((value, index, array) => array.indexOf(value) === index)
+	}
+
 	$.ajax({
 		url: '/api/wines',
 		type: 'get',
@@ -131,12 +135,10 @@ function getForTables(color, fields, loadingBtnEl) {
 
 		// Hide all the fields that aren't in the filter
 		if (fields) {
-			let uniqFields = fields.filter((value, index, array) => array.indexOf(value) === index)
-
 			$('.dt-scroll-head thead th').each((i, th) => {
 				const dID = $(th).data('id')
 
-				if (!uniqFields.includes(dID)) {
+				if (!fields.includes(dID)) {
 					table.column($(th).data('dt-column')).visible(false)
 				}
 			})
