@@ -17,40 +17,63 @@ function getRandomInt(min, max) {
 }
 
 /**
- * Get wines data based on color param via AJAX
- * @param {String} color Color param {red | white} (optional)
- * @param {Array} fields - String of field arrays (optional)
+ * Toggle a loading class for an element
+ * @param {Object} element DOM Element
+ * @param {Object[]} functions
  */
-function getForTables(color, fields) {
-	let fieldsData = null
-
-	if (fields) {
-		fieldsData = fields.join(",")
-
-		fields.forEach((fieldString) => {
-			$('.dt-scroll-head thead th').each((i, th) => {
-				console.log($(th).attr('data-id'))
-			})
-		})
+function animateLoading(element) {
+	const preHTML = element.html()
+	
+	function begin()
+	{
+		element.empty()
+		element.addClass('element-loading')
+		element.append('<i></i><i></i><i></i>')
+	}
+	
+	function done()
+	{
+		element.empty()
+		element.removeClass('element-loading')
+		element.html(preHTML)
 	}
 
+	return {
+		begin,
+		done
+	}	
+}
+
+/**
+ * Get wines data based on color param via AJAX
+ * @param {String} color Color param {red | white} (optional)
+ * @param {Array} fields String of field arrays (optional)
+ * @param {Object} loadingBtnEl Button element with loading animation
+ */
+function getForTables(color, fields, loadingBtnEl) {
 	$.ajax({
 		url: '/api/wines',
 		type: 'get',
 		data: {
 			color: color ? color : CURR_WINE_COLOR,
-			fields: fieldsData ? fieldsData : null
+			fields: fields ? fields.join(",") : null
 		},
 		success(res) {
-			createData(res)
+			if (loadingBtnEl) {
+				loadingBtnEl.done()
+				MicroModal.close('filter-modal')
+			}
+
+			createData(res, fields)
 		}
 	})
 	
 	/**
 	 * Append and create relevant table for wines
 	 * @param {Array} data Array of wine objects
+	 * @param {Array} fields Array of fields string
 	 */
-	function createData(data) {
+	function createData(data, fields) {
 		if (table) {
 			table.clear()
 			table.destroy()
@@ -74,7 +97,7 @@ function getForTables(color, fields) {
 													<td>${wine.freeSulfurDioxide}</td>
 													<td>${wine.totalSulfurDioxide}</td>
 													<td>${wine.density}</td>
-													<td>${wine.ph}</td>
+													<td>${wine.pH}</td>
 													<td>${wine.sulphates}</td>
 													<td>${wine.alcohol}</td>
 													<td>${wine.quality}</td>
@@ -106,6 +129,19 @@ function getForTables(color, fields) {
 
 		table.draw()
 
+		// Hide all the fields that aren't in the filter
+		if (fields) {
+			let uniqFields = fields.filter((value, index, array) => array.indexOf(value) === index)
+
+			$('.dt-scroll-head thead th').each((i, th) => {
+				const dID = $(th).data('id')
+
+				if (!uniqFields.includes(dID)) {
+					table.column($(th).data('dt-column')).visible(false)
+				}
+			})
+		}
+
 		bindFilterBtn()
 	}
 }
@@ -128,6 +164,7 @@ function bindFilterBtn()
 function submitModalForm()
 {
 	const checkedFieldBoxes = $('.filter-modal input:checkbox:checked')
+	const loadingBtnEl = animateLoading($('.js-filter'))
 	let checkedFieldsArr = []
 
 	checkedFieldBoxes.each((index, field) => {
@@ -137,7 +174,8 @@ function submitModalForm()
 		checkedFieldsArr.push(f)
 	})
 
-	getForTables(null, checkedFieldsArr)
+	loadingBtnEl.begin()
+	getForTables(null, checkedFieldsArr, loadingBtnEl)
 }
 
 // Animate loading screen before loading location path

@@ -121,19 +121,19 @@
 				<table class="table" id="table">
 					<thead>
 						<tr>
-							<th></th>
-							<th>Fixed Acidity</th>
-							<th>Volatile Acidity</th>
-							<th>Citric Acid</th>
-							<th>Residual Sugar</th>
-							<th>Chlorides</th>
-							<th>Free Sulfur Dioxide</th>
-							<th>Total Sulfur Dioxide</th>
-							<th>Density</th>
-							<th>pH</th>
-							<th>Sulphates</th>
-							<th>Alcohol</th>
-							<th>Quality</th>
+							<th data-id="color"></th>
+							<th data-id="fixedAcidity">Fixed Acidity</th>
+							<th data-id="volatileAcidity">Volatile Acidity</th>
+							<th data-id="citricAcid">Citric Acid</th>
+							<th data-id="residualSugar">Residual Sugar</th>
+							<th data-id="chlorides">Chlorides</th>
+							<th data-id="freeSulfurDioxide">Free Sulfur Dioxide</th>
+							<th data-id="totalSulfurDioxide">Total Sulfur Dioxide</th>
+							<th data-id="density">Density</th>
+							<th data-id="pH">pH</th>
+							<th data-id="sulphates">Sulphates</th>
+							<th data-id="alcohol">Alcohol</th>
+							<th data-id="quality">Quality</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -156,62 +156,62 @@
 					<h4>Toggle fields</h4>
 					<div class="grid">
 						<label for="fa">
-							<input type="checkbox" id="fa">
+							<input type="checkbox" id="fa" value="fixedAcidity">
 							<div class="checkbox"></div>
 							Fixed Acidity
 						</label>
 						<label for="va">
-							<input type="checkbox" id="va">
+							<input type="checkbox" id="va" value="volatileAcidity">
 							<div class="checkbox"></div>
 							Volatile Acidity
 						</label>
 						<label for="ca">
-							<input type="checkbox" id="ca">
+							<input type="checkbox" id="ca" value="citricAcid">
 							<div class="checkbox"></div>
 							Citric Acid
 						</label>
 						<label for="rs">
-							<input type="checkbox" id="rs">
+							<input type="checkbox" id="rs" value="residualSugar">
 							<div class="checkbox"></div>
 							Residual Sugar
 						</label>
 						<label for="cl">
-							<input type="checkbox" id="cl">
+							<input type="checkbox" id="cl" value="chlorides">
 							<div class="checkbox"></div>
 							Chlorides
 						</label>
 						<label for="fsd">
-							<input type="checkbox" id="fsd">
+							<input type="checkbox" id="fsd" value="freeSulfurDioxide">
 							<div class="checkbox"></div>
 							Free Sulfur Dioxide
 						</label>
 						<label for="tsd">
-							<input type="checkbox" id="tsd">
+							<input type="checkbox" id="tsd" value="totalSulfurDioxide">
 							<div class="checkbox"></div>
 							Total Sulfur Dioxide
 						</label>
 						<label for="d">
-							<input type="checkbox" id="d">
+							<input type="checkbox" id="d" value="density">
 							<div class="checkbox"></div>
 							Density
 						</label>
 						<label for="ph">
-							<input type="checkbox" id="ph">
+							<input type="checkbox" id="ph" value="pH">
 							<div class="checkbox"></div>
 							pH
 						</label>
 						<label for="s">
-							<input type="checkbox" id="s">
+							<input type="checkbox" id="s" value="sulphates">
 							<div class="checkbox"></div>
 							Sulphates
 						</label>
 						<label for="al">
-							<input type="checkbox" id="al">
+							<input type="checkbox" id="al" value="alcohol">
 							<div class="checkbox"></div>
 							Alcohol
 						</label>
 						<label for="q">
-							<input type="checkbox" id="q">
+							<input type="checkbox" id="q" value="quality">
 							<div class="checkbox"></div>
 							Quality
 						</label>
@@ -223,7 +223,7 @@
 				</section>
 			</div>
 			<div class="footer">
-				<button>Submit</button>
+				<button class="js-filter">Submit</button>
 			</div>
 		</div>
 	</div>
@@ -236,6 +236,7 @@
 	<script th:src="@{/js/app.js}"></script>
 	<script>
 		window.onunload = function(){} // browser bug, clear cache to run script on history.back()
+		const CURR_WINE_COLOR = null
 		getForTables()
 	</script>
 
