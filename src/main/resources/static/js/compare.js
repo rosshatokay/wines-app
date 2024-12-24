@@ -16,9 +16,9 @@ function Comparer()
 
 		const modal_cta_el = $(`
 			<div class="compare-cta gs--up">
-				<div class="compare-cta--btn">
+				<a href="/wines/compare" class="compare-cta--btn">
 					Compare wines<i class="material-symbols-rounded">compare_arrows</i>
-				</div>
+				</a>
 			</div>`)
 			
 		$('body').append(modal_cta_el)

@@ -110,6 +110,7 @@ h1 span:last-child {
   padding: 0 16px;
   gap: 16px;
 }
+
 .categories--box {
   padding: 32px;
   border-radius: 48px;
@@ -120,7 +121,13 @@ h1 span:last-child {
   overflow: hidden;
   height: 400px;
   align-items: flex-start;
+	transition: .2s ease;
 }
+
+.categories--box:active {
+	transform: scale(0.98);
+}
+
 .categories--box:hover img {
   bottom: -35%;
 }
@@ -256,6 +263,7 @@ h1 span:last-child {
   white-space: nowrap;
   padding: 12px 32px;
   font-weight: 400;
+	cursor: pointer;
   color: #444;
 }
 
@@ -718,4 +726,19 @@ div.dt-scroll-body thead tr th div.dt-scroll-sizing, div.dt-scroll-body thead tr
 
 .compare-cta--btn i {
 	font-size: 20px;
+}
+
+.compare-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+	margin-top: 64px;
+}
+
+.compare-grid h3 {
+	font-size: 32px;
+}
+
+.compare-grid p {
+	color: rgb(102, 102, 102);
 }

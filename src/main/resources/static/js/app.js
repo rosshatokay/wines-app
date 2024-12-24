@@ -121,7 +121,8 @@ function getForTables(color, fields, loadingBtnEl) {
 		})
 
 		// Add little sort buttons to each table head col
-		$('.dt-column-order:not(:first)').empty().append(`
+		// $('.dt-column-order:not(:first)').empty().append(`
+		$('.dt-column-order').empty().append(`
 			<i class="material-symbols-rounded up">keyboard_arrow_up</i>
 			<i class="material-symbols-rounded down">keyboard_arrow_down</i>
 		`)
