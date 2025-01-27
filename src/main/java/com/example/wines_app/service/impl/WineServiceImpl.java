@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +35,11 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public List<Map<String, Object>> findWines(String color, List<String> fields) {
+    public List<Map<String, Object>> findWines(String color, List<String> fields, String start_date, String end_date) {
         List<Wine> wines;
+
+        LocalDate startDate = (start_date != null && !start_date.isBlank()) ? LocalDate.parse(start_date) : null;
+        LocalDate endDate = (end_date != null && !end_date.isBlank()) ? LocalDate.parse(end_date) : null;
 
         // Filter by color if specified
         if (color == null || color.isBlank()) {
@@ -82,6 +86,7 @@ public class WineServiceImpl implements WineService {
                 .alcohol(wine.getAlcohol())
                 .color(wine.getColor())
                 .quality(wine.getQuality())
+                .date_added(wine.getDate_added())
             .build();
 
         return wineDto;

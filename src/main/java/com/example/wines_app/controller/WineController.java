@@ -53,14 +53,16 @@ public class WineController {
 	@ResponseBody
 	public List<Map<String, Object>> listWines(
 			@RequestParam(required = false) String color,
-			@RequestParam(required = false) List<String> fields) {
+			@RequestParam(required = false) List<String> fields,
+			@RequestParam(required = false) String start_date,
+			@RequestParam(required = false) String end_date) {
 		if (fields == null || fields.isEmpty()) {
 			fields = Arrays.stream(Wine.class.getDeclaredFields())
 					.map(Field::getName)
 					.toList();
 		}
 
-		return wineService.findWines(color, fields);
+		return wineService.findWines(color, fields, start_date, end_date);
 	}
 
 	@GetMapping("/api/wines/split-by-color")
@@ -87,8 +89,8 @@ public class WineController {
 		List<String> fields = Arrays.asList("color", "pH", "alcohol");
 
 		// Run two queries concurrently
-		CompletableFuture<List<Map<String, Object>>> query1 = CompletableFuture.supplyAsync(() -> wineService.findWines("white", fields));
-		CompletableFuture<List<Map<String, Object>>> query2 = CompletableFuture.supplyAsync(() -> wineService.findWines("white", fields));
+		CompletableFuture<List<Map<String, Object>>> query1 = CompletableFuture.supplyAsync(() -> wineService.findWines("red", fields, null, null));
+		CompletableFuture<List<Map<String, Object>>> query2 = CompletableFuture.supplyAsync(() -> wineService.findWines("white", fields, null, null));
 
 		// Combine results
 		CompletableFuture.allOf(query1, query2).join();

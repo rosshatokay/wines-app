@@ -102,29 +102,51 @@
 	<div class="app">
 		<div class="container">
 			<div class="flex" style="flex-direction: column; align-items: flex-start; gap: 16px;">
-				<div class="gs--ups">
+				<div class="gs--up">
 					<a href="/" class="back-btn flex items-center" style="gap: 8px; font-size: 18px; font-weight: 600;">
 						<i class="material-symbols-rounded">arrow_back</i>
 						Go back
 					</a>
 				</div>
 				<h1>
-					<span class="gs--ups" style="color: black;">compare wines</span>
+					<span class="gs--up" style="color: black;">compare wines</span>
 				</h1>
-				<p class="gs--ups" style="color: #666;">Below, you can see a comparison between the red and white wines.</p>
-				<!-- <p class="gs--ups total-results" style="color: #666;">Showing 1,214 results</p> -->
+				<p class="gs--up" style="color: #666;">Below, you can see a comparison between the red and white wines.</p>
+				<!-- <p class="gs--up total-results" style="color: #666;">Showing 1,214 results</p> -->
 			</div>
 
-			<div class="compare-grid">
+			<div class="compare-grid gs--up">
 				<div class="compare-grid--col">
 					<h3>Red wines</h3>
-					<p>Showing x number of red wines</p>
-					<div style="width: 100%; height: 400px; background: #eee; border-radius: 12px; margin-top: 24px;"></div>
+					<p>Showing <span class="red-wines-count"></span> red wines</p>
+					<div style="width: 100%; margin-top: 24px;">
+						<table class="table" id="red-table">
+							<thead>
+								<tr>
+									<th data-id="color">Color</th>
+									<th data-id="pH">pH</th>
+									<th data-id="alcohol">Alcohol</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
 				</div>
 				<div class="compare-grid--col">
 					<h3>White wines</h3>
-					<p>Showing x number of red wines</p>
-					<div style="width: 100%; height: 400px; background: #eee; border-radius: 12px; margin-top: 24px;"></div>
+					<p>Showing <span class="white-wines-count"></span> white wines</p>
+					<div style="width: 100%; margin-top: 24px;">
+						<table class="table" id="white-table">
+							<thead>
+								<tr>
+									<th data-id="color">Color</th>
+									<th data-id="pH">pH</th>
+									<th data-id="alcohol">Alcohol</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

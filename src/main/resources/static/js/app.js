@@ -49,18 +49,24 @@ function animateLoading(element) {
  * @param {String} color Color param {red | white} (optional)
  * @param {Array} fields String of field arrays (optional)
  * @param {Object} loadingBtnEl Button element with loading animation
+ * @param {Date} startDate Date added range start
+ * @param {Date} endDate Date added range end
  */
-function getForTables(color, fields, loadingBtnEl) {
+function getForTables(color, fields, loadingBtnEl, startDate, endDate) {
 	if (fields) {
 		fields = fields.filter((value, index, array) => array.indexOf(value) === index)
 	}
 
+	console.log(startDate, endDate)
+	
 	$.ajax({
 		url: '/api/wines',
 		type: 'get',
 		data: {
 			color: color ? color : CURR_WINE_COLOR,
-			fields: fields ? fields.join(",") : null
+			fields: fields ? fields.join(",") : null,
+			start_date: startDate,
+			end_date: endDate
 		},
 		success(res) {
 			if (loadingBtnEl) {
@@ -86,6 +92,8 @@ function getForTables(color, fields, loadingBtnEl) {
 		$('.total-results').text(`Showing ${data.length} wines`)
 
 		data.forEach((wine, i) => {
+			if (i >= 10) return
+
 			const html = $(`<tr>
 													<td>
 															<div class="flex items-center" style="gap: 16px">
@@ -106,6 +114,7 @@ function getForTables(color, fields, loadingBtnEl) {
 													<td>${wine.alcohol}</td>
 													<td>${wine.quality}</td>
 											</tr>`)
+
 			$('.table').append(html)
 		})
 	
@@ -166,6 +175,8 @@ function bindFilterBtn()
  */
 function submitModalForm()
 {
+	const startDate = $('.filter-modal .start-date').val()
+	const endDate = $('.filter-modal .end-date').val()
 	const checkedFieldBoxes = $('.filter-modal input:checkbox:checked')
 	const loadingBtnEl = animateLoading($('.js-filter'))
 	let checkedFieldsArr = []
@@ -178,7 +189,8 @@ function submitModalForm()
 	})
 
 	loadingBtnEl.begin()
-	getForTables(null, checkedFieldsArr, loadingBtnEl)
+	
+	getForTables(null, checkedFieldsArr, loadingBtnEl, startDate, endDate)
 }
 
 // Animate loading screen before loading location path

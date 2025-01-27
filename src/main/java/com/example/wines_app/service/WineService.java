@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface WineService {
     List<WineDto> findAllWines();
-    List<Map<String, Object>> findWines(String color, List<String> fields);
+    List<Map<String, Object>> findWines(String color, List<String> fields, String start_date, String end_date);
 }
