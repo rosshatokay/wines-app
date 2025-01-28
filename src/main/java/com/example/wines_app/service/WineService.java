@@ -2,10 +2,11 @@ package com.example.wines_app.service;
 
 import com.example.wines_app.dto.WineDto;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 public interface WineService {
-    List<WineDto> findAllWines();
-    List<Map<String, Object>> findWines(String color, List<String> fields, String start_date, String end_date);
+    List<WineDto> getWinesByDateRange(LocalDate startDate, LocalDate endDate);
+    List<Map<String, Object>> findWines(String color, List<String> fields, String start_date, String end_date, Double maxPh);
 }

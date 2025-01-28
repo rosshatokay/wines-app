@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.aot.generate.GeneratedTypeReference;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -61,5 +60,5 @@ public class Wine {
 	private String color;
 
 	@Column(name = "date_added", nullable = false)
-	private Date date_added;
+	private LocalDate dateAdded;
 }

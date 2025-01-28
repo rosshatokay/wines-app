@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
@@ -55,21 +54,23 @@ public class WineController {
 			@RequestParam(required = false) String color,
 			@RequestParam(required = false) List<String> fields,
 			@RequestParam(required = false) String start_date,
-			@RequestParam(required = false) String end_date) {
+			@RequestParam(required = false) String end_date,
+			@RequestParam(required = false) Double maxPh) {
+
 		if (fields == null || fields.isEmpty()) {
 			fields = Arrays.stream(Wine.class.getDeclaredFields())
 					.map(Field::getName)
 					.toList();
 		}
 
-		return wineService.findWines(color, fields, start_date, end_date);
+		return wineService.findWines(color, fields, start_date, end_date, maxPh);
 	}
 
 	@GetMapping("/api/wines/split-by-color")
 	@ResponseBody
 	// public Map<String, List<WineDto>> listWinesByColor() {
 	public Map<String, Long> listWinesByColor() {
-		List<WineDto> wines = wineService.findAllWines();
+		List<WineDto> wines = wineService.getWinesByDateRange(null, null);
 
 		// Split the list into two based on color
 		long redWinesCount = wines.stream()
@@ -89,8 +90,8 @@ public class WineController {
 		List<String> fields = Arrays.asList("color", "pH", "alcohol");
 
 		// Run two queries concurrently
-		CompletableFuture<List<Map<String, Object>>> query1 = CompletableFuture.supplyAsync(() -> wineService.findWines("red", fields, null, null));
-		CompletableFuture<List<Map<String, Object>>> query2 = CompletableFuture.supplyAsync(() -> wineService.findWines("white", fields, null, null));
+		CompletableFuture<List<Map<String, Object>>> query1 = CompletableFuture.supplyAsync(() -> wineService.findWines("red", fields, null, null, null));
+		CompletableFuture<List<Map<String, Object>>> query2 = CompletableFuture.supplyAsync(() -> wineService.findWines("white", fields, null, null, null));
 
 		// Combine results
 		CompletableFuture.allOf(query1, query2).join();

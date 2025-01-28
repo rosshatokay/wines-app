@@ -5,6 +5,17 @@ let table
 
 $('.loading-screen .fg').css('width', `${getRandomInt(20, 60)}%`)
 
+const phRangeInput = $('#filter-max-ph')
+
+if (phRangeInput.length)
+{
+	$('.range-val').text(phRangeInput.val())
+
+	phRangeInput.on('input', function(){
+		$('.range-val').text($(this).val())
+	})
+}
+
 /**
  * Return a random number between min | max
  * @param {Integer} min Minimum int
@@ -52,13 +63,11 @@ function animateLoading(element) {
  * @param {Date} startDate Date added range start
  * @param {Date} endDate Date added range end
  */
-function getForTables(color, fields, loadingBtnEl, startDate, endDate) {
+function getForTables(color, fields, loadingBtnEl, startDate, endDate, maxPh) {
 	if (fields) {
 		fields = fields.filter((value, index, array) => array.indexOf(value) === index)
 	}
 
-	console.log(startDate, endDate)
-	
 	$.ajax({
 		url: '/api/wines',
 		type: 'get',
@@ -66,7 +75,8 @@ function getForTables(color, fields, loadingBtnEl, startDate, endDate) {
 			color: color ? color : CURR_WINE_COLOR,
 			fields: fields ? fields.join(",") : null,
 			start_date: startDate,
-			end_date: endDate
+			end_date: endDate,
+			maxPh: maxPh
 		},
 		success(res) {
 			if (loadingBtnEl) {
@@ -92,7 +102,7 @@ function getForTables(color, fields, loadingBtnEl, startDate, endDate) {
 		$('.total-results').text(`Showing ${data.length} wines`)
 
 		data.forEach((wine, i) => {
-			if (i >= 10) return
+			// if (i >= 10) return
 
 			const html = $(`<tr>
 													<td>
@@ -101,6 +111,7 @@ function getForTables(color, fields, loadingBtnEl, startDate, endDate) {
 																	<span>${wine.color == 'red' ? 'Red wine' : 'White wine'}</span>
 															</div>
 													</td>
+													<td>${wine.dateAdded}</td>
 													<td>${wine.fixedAcidity}</td>
 													<td>${wine.volatileAcidity}</td>
 													<td>${wine.citricAcid}</td>
@@ -179,6 +190,7 @@ function submitModalForm()
 	const endDate = $('.filter-modal .end-date').val()
 	const checkedFieldBoxes = $('.filter-modal input:checkbox:checked')
 	const loadingBtnEl = animateLoading($('.js-filter'))
+	const maxPh = $('#filter-max-ph').val()
 	let checkedFieldsArr = []
 
 	checkedFieldBoxes.each((index, field) => {
@@ -190,7 +202,7 @@ function submitModalForm()
 
 	loadingBtnEl.begin()
 	
-	getForTables(null, checkedFieldsArr, loadingBtnEl, startDate, endDate)
+	getForTables(null, checkedFieldsArr, loadingBtnEl, startDate, endDate, maxPh)
 }
 
 // Animate loading screen before loading location path

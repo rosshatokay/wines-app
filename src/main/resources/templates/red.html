@@ -2,6 +2,11 @@
 <head>
 	<link rel="stylesheet" th:href="@{/css/app.css}">
 	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1" rel="stylesheet">
+	<style>
+		.filter-modal-trigger {
+			display: none;
+		}
+	</style>
 </head>
 <body>
 
@@ -120,6 +125,7 @@
 					<thead>
 						<tr>
 							<th data-id="color">Color</th>
+							<th data-id="dateAdded">Date added</th>
 							<th data-id="fixedAcidity">Fixed Acidity</th>
 							<th data-id="volatileAcidity">Volatile Acidity</th>
 							<th data-id="citricAcid">Citric Acid</th>
@@ -153,6 +159,11 @@
 				<section>
 					<h4>Toggle fields</h4>
 					<div class="grid">
+						<label for="da">
+							<input type="checkbox" id="da" value="dateAdded">
+							<div class="checkbox"></div>
+							Date Added
+						</label>
 						<label for="fa">
 							<input type="checkbox" id="fa" value="fixedAcidity">
 							<div class="checkbox"></div>
@@ -194,7 +205,7 @@
 							Density
 						</label>
 						<label for="ph">
-							<input type="checkbox" id="ph" value="ph">
+							<input type="checkbox" id="ph" value="pH">
 							<div class="checkbox"></div>
 							pH
 						</label>
@@ -217,7 +228,17 @@
 				</section>
 				<section>
 					<h4>Max pH</h4>
-					<input type="range" max="10">
+					<div style="display: flex; align-items: center; gap: 8px;">
+						<p class="range-val"></p>
+						<input type="range" max="6" min="0" value="1" step="1" id="filter-max-ph" style="width: 100%;">
+					</div>
+				</section>
+				<section>
+					<h4>Date added range</h4>
+					<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+						<input type="date" min="2022-01-01" max="2024-12-10" class="start-date date-input">
+						<input type="date" min="2022-01-01" max="2024-12-10" class="end-date date-input">
+					</div>
 				</section>
 			</div>
 			<div class="footer">

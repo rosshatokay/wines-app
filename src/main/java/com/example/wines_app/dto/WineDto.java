@@ -3,6 +3,7 @@ package com.example.wines_app.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -37,5 +38,5 @@ public class WineDto {
 
     private String color;
 
-    private Date date_added;
+    private LocalDate date_added;
 }

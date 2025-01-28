@@ -29,27 +29,31 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public List<WineDto> findAllWines() {
-        List<Wine> wines = wineRepository.findAll();
+    public List<WineDto> getWinesByDateRange(LocalDate startDate, LocalDate endDate) {
+        List<Wine> wines = wineRepository.findByFilters(startDate, endDate, null);
+
         return wines.stream().map(this::mapToWineDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<Map<String, Object>> findWines(String color, List<String> fields, String start_date, String end_date) {
+    public List<Map<String, Object>> findWines(String color, List<String> fields, String start_date, String end_date, Double maxPh) {
         List<Wine> wines;
 
-        LocalDate startDate = (start_date != null && !start_date.isBlank()) ? LocalDate.parse(start_date) : null;
-        LocalDate endDate = (end_date != null && !end_date.isBlank()) ? LocalDate.parse(end_date) : null;
 
         // Filter by color if specified
         if (color == null || color.isBlank()) {
-            wines = wineRepository.findAll();
+            wines = wineRepository.findByFilters(parseDate(start_date), parseDate(end_date), maxPh);
         } else {
             wines = wineRepository.findByColorIgnoreCase(color);
         }
 
         // Map and project fields dynamically
         return wines.stream().map(wine -> projectFields(wine, fields)).toList();
+    }
+
+    private LocalDate parseDate(String date)
+    {
+        return (date != null && !date.isBlank()) ? LocalDate.parse(date) : null;
     }
 
     // Helper method to project specific fields
@@ -86,7 +90,7 @@ public class WineServiceImpl implements WineService {
                 .alcohol(wine.getAlcohol())
                 .color(wine.getColor())
                 .quality(wine.getQuality())
-                .date_added(wine.getDate_added())
+                .date_added(wine.getDateAdded())
             .build();
 
         return wineDto;
