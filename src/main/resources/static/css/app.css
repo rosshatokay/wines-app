@@ -35,6 +35,7 @@ nav.top {
 }
 nav.top .logo svg {
   height: 36px;
+	width: auto;
 }
 nav.top a {
   font-size: 18px;
@@ -722,6 +723,7 @@ div.dt-scroll-body thead tr th div.dt-scroll-sizing, div.dt-scroll-body thead tr
 	font-weight: 600;
 	cursor: pointer;
 	user-select: none;
+	border: none;
 	border-radius: 999px;
 	transition: .2s ease;
 }

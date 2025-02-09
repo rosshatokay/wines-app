@@ -4,6 +4,7 @@ import com.example.wines_app.dto.WineDto;
 import com.example.wines_app.models.Wine;
 import com.example.wines_app.service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -101,4 +102,12 @@ public class WineController {
 				"whiteWines", query2.join()
 		);
 	}
+
+	@PostMapping("/api/create-new-db")
+	public ResponseEntity<String> createNewDatabase()
+	{
+		wineService.createNewDatabaseAndTables();
+		return ResponseEntity.ok("Tables created successfully");
+	}
+
 }

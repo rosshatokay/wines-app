@@ -23,13 +23,13 @@ function Comparer()
 			
 		$('body').append(modal_cta_el)
 
-		bindCTA()
+		bindCTA(modal_cta_el)
 	}
 
 	// Handle compare btn click
-	function bindCTA()
+	function bindCTA(btn)
 	{
-		$('.compare-cta--btn').unbind().click(getData)
+		btn.unbind().click(getData)
 	}
 
 	function getData()
