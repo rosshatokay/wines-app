@@ -143,7 +143,7 @@
 	</div>
 
 	<div class="compare-cta gs--up">
-		<button onclick="generateTables()" class="compare-cta--btn">
+		<button class="compare-cta--btn">
 			Generate analysis tables <i class="material-symbols-rounded">compare_arrows</i>
 		</button>
 	</div>
@@ -158,14 +158,21 @@
 	<script>
 		function generateTables()
 		{
-			$.ajax({
-				url: '/api/create-new-db',
-				type: 'post',
-				success(res) {
-					console.log(res)
-				}
+			const btn = $('.compare-cta--btn')
+
+			btn.unbind().on('click', function() {
+				$.ajax({
+					url: '/api/create-new-db',
+					type: 'post',
+					success(res) {
+						btn.remove()
+					}
+				})
 			})
 		}
+
+		generateTables()
+
 	</script>
 
 </body>

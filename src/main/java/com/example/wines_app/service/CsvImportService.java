@@ -60,7 +60,8 @@ public class CsvImportService {
 
                     jdbcTemplate.update("INSERT INTO wines (id, fixed_acidity, volatile_acidity, citric_acid, " +
                                     "residual_sugar, chlorides, free_sulfur_dioxide, total_sulfur_dioxide, density, " +
-                                    "ph, sulphates, alcohol, color, quality, date_added) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                                    "ph, sulphates, alcohol, color, quality, date_added) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                                    + "ON CONFLICT (id) DO NOTHING",
                             id, fixedAcidity, volatileAcidity, citricAcid, residualSugar, chlorides,
                             freeSulfurDioxide, totalSulfurDioxide, density, ph, sulphates, alcohol,
                             color, quality, dateAdded);

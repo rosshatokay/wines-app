@@ -54,6 +54,7 @@ public class WineServiceImpl implements WineService {
         // Create a new database if it doesn't exist
         if (!exists.isEmpty()) {
             System.out.println("Database already exists: " + newDbName);
+            return;
         } else {
             jdbcTemplate.execute("CREATE DATABASE " + newDbName);
         }
@@ -82,7 +83,9 @@ public class WineServiceImpl implements WineService {
         List<Map<String, Object>> originalWines = jdbcTemplate.queryForList("SELECT * FROM wines"); // Fetch all wines
 
         for (Map<String, Object> row : originalWines) {
-            newDbJdbcTemplate.update("INSERT INTO wines (id, name, alcohol, ph, date_added) VALUES (?, ?, ?, ?, ?)",
+            newDbJdbcTemplate.update("INSERT INTO wines (id, name, alcohol, ph, date_added) " +
+                            "VALUES (?, ?, ?, ?, ?) " +
+                            "ON CONFLICT (id) DO NOTHING",
                     row.get("id"),
                     row.get("name"),
                     row.get("alcohol"),

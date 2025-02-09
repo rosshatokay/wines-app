@@ -10,7 +10,7 @@
 }
 body *, * {
   box-sizing: border-box;
-  font-family: "Studio Pro";
+  font-family: "Studio Pro", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -731,8 +731,8 @@ div.dt-scroll-body thead tr th div.dt-scroll-sizing, div.dt-scroll-body thead tr
 .compare-cta {
 	position: fixed;
 	bottom: 32px;
-	left: 0;
-	width: 100%;
+	left: 50%;
+	transform: translateX(-50%) !important;
 	display: flex;
 	align-items: center;
 	justify-content: center;
