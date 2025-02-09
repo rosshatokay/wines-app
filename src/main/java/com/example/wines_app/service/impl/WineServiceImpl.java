@@ -3,6 +3,7 @@ package com.example.wines_app.service.impl;
 import com.example.wines_app.dto.WineDto;
 import com.example.wines_app.models.Wine;
 import com.example.wines_app.repository.WineRepository;
+import com.example.wines_app.service.CsvImportService;
 import com.example.wines_app.service.WineService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import java.lang.reflect.Field;
 public class WineServiceImpl implements WineService {
     @Autowired
     private final WineRepository wineRepository;
+    private final CsvImportService csvImportService;
     private final JdbcTemplate jdbcTemplate;
 
     @Value("${spring.datasource.username}")
@@ -34,9 +36,10 @@ public class WineServiceImpl implements WineService {
     private String password; // db password
 
     @Autowired
-    public WineServiceImpl(WineRepository wineRepository, JdbcTemplate jdbcTemplate) {
+    public WineServiceImpl(WineRepository wineRepository, JdbcTemplate jdbcTemplate, CsvImportService csvImportService) {
         this.wineRepository = wineRepository;
         this.jdbcTemplate = jdbcTemplate;
+        this.csvImportService = csvImportService;
     }
 
     // method to create a separate database and tables

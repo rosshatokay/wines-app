@@ -42,6 +42,10 @@ bootRun {
 	sourceResources sourceSets.main
 }
 
+tasks.withType(Jar) {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
